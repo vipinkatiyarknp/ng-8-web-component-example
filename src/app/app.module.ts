@@ -1,18 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-import { AnalyticsCounterComponent } from './analytics-counter/analytics-counter.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
-declarations: [AnalyticsCounterComponent],
-imports: [BrowserModule],
-entryComponents: [AnalyticsCounterComponent]
+    declarations: [
+        AppComponent,
+        ButtonComponent
+    ],
+    imports: [
+        BrowserModule
+    ],
+    entryComponents: [ButtonComponent],
+    providers: []
 })
 export class AppModule {
+    constructor(private injector: Injector) { }
 
-constructor(private injector: Injector) {
-    const analyticsCounter = createCustomElement(AnalyticsCounterComponent, { injector });
-    customElements.define('analytics-counter', analyticsCounter);
+    ngDoBootstrap() {
+        const customElement = createCustomElement(ButtonComponent, {injector: this.injector});
+        customElements.define('app-button', customElement);
+    }
 }
-ngDoBootstrap() {}
-} 
+
+
+
+
